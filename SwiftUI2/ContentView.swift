@@ -11,6 +11,8 @@ import SwiftUI
 struct ContentView: View {
     @State var isFilled = true
     @State var counted = 1
+    @State var borderWidth = 10.0
+    @State var isPresented = false
     var body: some View {
         VStack {
             Button(action: {
@@ -30,13 +32,19 @@ struct ContentView: View {
             
             Rectangle()
                 .fill(self.isFilled ? Color.blue : Color.black)
-                .border(self.isFilled ? Color.black : Color.blue,width: 10.0)
+                .border(self.isFilled ? Color.black : Color.blue,width: CGFloat(borderWidth))
                 .cornerRadius(8.0)
                 .frame(width: 150.0, height: 150.0)
                 .rotationEffect(Angle(degrees: 10.0 * Double(counted)))
             .shadow(radius: 50)
                 .onTapGesture {
                     self.counted+=1
+            }
+            .onLongPressGesture {
+                self.isPresented.toggle()
+            }
+            .actionSheet(isPresented: $isPresented) {
+                ActionSheet(title: Text("Action Sheet"),message: Text("This is action Sheet"),buttons: [.default(Text("Ball")),.cancel()])
             }
         }
     }
@@ -45,5 +53,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+        .previewDevice(PreviewDevice(rawValue: "iPhone XR"))
     }
 }
