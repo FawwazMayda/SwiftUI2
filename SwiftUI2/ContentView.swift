@@ -9,8 +9,36 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isFilled = true
+    @State var counted = 1
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Button(action: {
+                self.isFilled.toggle()
+            }) {
+                Text("Pressed: \(counted) times")
+                    .foregroundColor(self.isFilled ? Color.yellow : Color.gray)
+                    .padding(.all)
+                    .font(.title)
+            }.background(self.isFilled ? Color.gray: Color.yellow).cornerRadius(20.0)
+                .shadow(radius: 20.0)
+            
+            
+            Divider()
+            Divider()
+            Divider()
+            
+            Rectangle()
+                .fill(self.isFilled ? Color.blue : Color.black)
+                .border(self.isFilled ? Color.black : Color.blue,width: 10.0)
+                .cornerRadius(8.0)
+                .frame(width: 150.0, height: 150.0)
+                .rotationEffect(Angle(degrees: 10.0 * Double(counted)))
+            .shadow(radius: 50)
+                .onTapGesture {
+                    self.counted+=1
+            }
+        }
     }
 }
 
