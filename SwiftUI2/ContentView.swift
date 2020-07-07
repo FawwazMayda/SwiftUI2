@@ -44,7 +44,11 @@ struct ContentView: View {
                 self.isPresented.toggle()
             }
             .actionSheet(isPresented: $isPresented) {
-                ActionSheet(title: Text("Action Sheet"),message: Text("This is action Sheet"),buttons: [.default(Text("Ball")),.cancel()])
+                ActionSheet(title: Text("Action Sheet"),message: Text("This is action Sheet"),buttons: [.default(Text("Border width: 5"),action: {self.borderWidth = 5.0}),.default(Text("Border Width: 10"), action: {self.borderWidth=10.0}),
+                                                                                                        .destructive(Text("Reset to Zero"), action: {self.counted = 0}),
+                                                                
+                                                                                                        
+                                                                                                        .cancel()])
             }
         }
     }
